@@ -31,7 +31,7 @@ public class AviationComponentController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		List<Object> componentRemovalRept =  aviationComponentService.getRemovedComponents(sDate, eDate);
+		List<Object> componentRemovalRept =  aviationComponentService.getRemovedComponents(sDate, eDate, "ATA");
 		return componentRemovalRept;
 	}
 	
@@ -48,7 +48,7 @@ public class AviationComponentController {
 			e.printStackTrace();
 		}
 		 
-		List<Object> componentRemovalRept =  aviationComponentService.getRemovedComponentsMFG(sDate, eDate);
+		List<Object> componentRemovalRept =  aviationComponentService.getRemovedComponents(sDate, eDate, "MFG");
 		return componentRemovalRept;
 	}
 	
@@ -65,7 +65,7 @@ public class AviationComponentController {
 			e.printStackTrace();
 		}
 		 
-		List<Object> componentRemovalRept =  aviationComponentService.getRemovedComponentsCPNSerial(sDate, eDate);
+		List<Object> componentRemovalRept =  aviationComponentService.getRemovedComponents(sDate, eDate, "CPNSERIAL");
 		return componentRemovalRept;
 	}
 	
@@ -81,7 +81,7 @@ public class AviationComponentController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		List<Object> componentRemovalRept =  aviationComponentService.getRemovedComponentsTailNoOfRemoval(sDate, eDate);
+		List<Object> componentRemovalRept =  aviationComponentService.getRemovedComponents(sDate, eDate, "TAIL");
 		return componentRemovalRept;
 		
 	}

@@ -34,6 +34,12 @@ public class AviationComponentServiceImpl implements AviationComponentService {
 		return null;
 	}
 
+	@Override
+	public List<Object> getRemovedComponents(Date startDate, Date endDate, String componentType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 }

@@ -9,4 +9,6 @@ public interface AviationComponentService {
 	List<Object> getRemovedComponentsMFG(final Date startDate, final Date endDate);
 	List<Object> getRemovedComponentsCPNSerial(final Date startDate, final Date endDate);
 	List<Object> getRemovedComponentsTailNoOfRemoval(final Date startDate, final Date endDate);
+	
+	List<Object> getRemovedComponents(final Date startDate, final Date endDate, final String componentType);
 }
