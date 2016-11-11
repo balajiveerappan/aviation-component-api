@@ -23,7 +23,7 @@ public class AviationComponentController {
 	private AviationComponentService componentService;
 	
 	@RequestMapping(value = "/splashScreen", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Object> showSplashScreen(@RequestParam String componentType) {
+	public List<Object> showSplashScreen(@RequestParam(required=false) String componentType) {
 		String pattern = ComponentConstants.DATEFORMATNEW;
 		Date sDate=null;
 		Date eDate=null;
