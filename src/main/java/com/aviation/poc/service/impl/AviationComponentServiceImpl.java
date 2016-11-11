@@ -2,44 +2,41 @@ package com.aviation.poc.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aviation.poc.repository.ComponentHistoryRepository;
 import com.aviation.poc.service.AviationComponentService;
 
+
 @Service
-public class AviationComponentServiceImpl implements AviationComponentService {
+public class AviationComponentServiceImpl  implements AviationComponentService{
+
+	@Autowired
+	private ComponentHistoryRepository historyRepo;
 
 	@Override
-	public List<Object> getRemovedComponents(Date startDate, Date endDate) {
-		// TODO Auto-generated method stub
+	public List<Object> getRemovedComponents(final Date startDate, final Date endDate, final String componentType) {
+
+		switch(componentType) {
+		
+		case "ATA" : return historyRepo.getRemovedComponents(startDate, endDate, "Removed", "null")
+					.stream().limit(10).collect(Collectors.toList());
+		
+		case "MFG" : return historyRepo.getRemovedComponentsMFG(startDate, endDate, "Removed", "null")
+						.stream().limit(10).collect(Collectors.toList());
+		
+		case "CPN" : return historyRepo.getRemovedComponentsCPNSerial(startDate, endDate, "Removed", "null")
+							.stream().limit(10).collect(Collectors.toList());
+						
+		case "TAIL" : return historyRepo.getRemovedComponentstailRemoval(startDate, endDate, "Removed", "null")
+				.stream().limit(10).collect(Collectors.toList());
+		
+		}
+		
 		return null;
 	}
-
-	@Override
-	public List<Object> getRemovedComponentsMFG(Date startDate, Date endDate) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Object> getRemovedComponentsCPNSerial(Date startDate, Date endDate) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Object> getRemovedComponentsTailNoOfRemoval(Date startDate, Date endDate) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Object> getRemovedComponents(Date startDate, Date endDate, String componentType) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 	
 }
