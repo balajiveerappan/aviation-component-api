@@ -7,12 +7,14 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aviation.poc.entity.Component;
 import com.aviation.poc.service.AviationComponentService;
 import com.aviation.poc.util.ComponentConstants;
 
@@ -37,4 +39,11 @@ public class AviationComponentController {
 		return componentRemovalRept;
 	}
 	
+	@RequestMapping(value = "/loadComponent", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Component> loadComponentData(@RequestParam(required = false) @DateTimeFormat(pattern = ComponentConstants.DATEFORMATNEW) Date start,@RequestParam(required = false) @DateTimeFormat(pattern = ComponentConstants.DATEFORMATNEW) Date end)
+			throws ParseException {
+		
+		return componentService.getComponent(start, end);
+	}
+
 }

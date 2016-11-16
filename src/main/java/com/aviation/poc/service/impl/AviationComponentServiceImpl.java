@@ -6,8 +6,13 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.aviation.poc.entity.Component;
 import com.aviation.poc.repository.ComponentHistoryRepository;
+import com.aviation.poc.repository.ComponentRepository;
 import com.aviation.poc.service.AviationComponentService;
 
 
@@ -16,6 +21,10 @@ public class AviationComponentServiceImpl  implements AviationComponentService{
 
 	@Autowired
 	private ComponentHistoryRepository historyRepo;
+	
+	@Autowired
+	private ComponentRepository componentRepository;
+	
 
 	@Override
 	public List<Object> getRemovedComponents(final Date startDate, final Date endDate, final String componentType) {
@@ -38,5 +47,11 @@ public class AviationComponentServiceImpl  implements AviationComponentService{
 		
 		return null;
 	}
-	
+	@Override
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public List<Component> getComponent(Date fromDate, Date toDate) {
+
+		final List<Component> component = componentRepository.getComponent(fromDate, toDate);
+		return component;
+	}
 }
