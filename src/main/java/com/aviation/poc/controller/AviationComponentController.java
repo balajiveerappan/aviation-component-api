@@ -3,15 +3,19 @@ package com.aviation.poc.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aviation.poc.entity.Component;
@@ -40,10 +44,18 @@ public class AviationComponentController {
 	}
 	
 	@RequestMapping(value = "/loadComponent", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Component> loadComponentData(@RequestParam(required = false) @DateTimeFormat(pattern = ComponentConstants.DATEFORMATNEW) Date start,@RequestParam(required = false) @DateTimeFormat(pattern = ComponentConstants.DATEFORMATNEW) Date end)
+	public List<Component> loadComponentData(@RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date start, @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date end)
 			throws ParseException {
+		
 		
 		return componentService.getComponent(start, end);
 	}
 
+	
+
+	@RequestMapping(value = "/removalReport", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public com.aviation.poc.vo.ComponentReport removalReport(@RequestParam List<Long> componentIdList) {
+		 return componentService.getComponents(componentIdList);
+	}
 }

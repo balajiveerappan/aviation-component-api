@@ -10,4 +10,7 @@ public interface AviationComponentService {
  List<Object> getRemovedComponents(final Date startDate, final Date endDate, final String componentType);
  
  public List<Component> getComponent(Date fromDate, Date toDate);
+ 
+ public com.aviation.poc.vo.ComponentReport getComponents(List<Long> componentIds);
+ 
 }
