@@ -5,7 +5,6 @@ server:
 server:
   context-path: /
 ---
-
 spring:
   profiles: local
   jpa:
@@ -15,7 +14,7 @@ spring:
 spring:
   profiles: local, cloud
   datasource:
-    url: ${cloud.services.mysql4.connection.jdbcurl:jdbc:mysql://localhost:3306/aviation?useSSL=false&user=root&password=root}
+    url: ${cloud.services.mysql4.connection.jdbcUrl:jdbc:mysql://localhost:3306/aviation?useSSL=false&user=root&password=root}
 ---
 eureka:
   instance:
