@@ -7,13 +7,10 @@ server:
 ---
 
 spring:
-  profiles: local, cloud
+  profiles: local
   jpa:
     hibernate:
       ddl-auto: update
----
-server:
-  port: 8082
 ---
 spring:
   profiles: local, cloud
