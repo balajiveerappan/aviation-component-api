@@ -2,6 +2,13 @@ server:
   port: 8082
   
 ---
+spring:
+  data:
+    mongodb:
+      database: test
+      host: localhost
+      port: 27017
+---      
 server:
   context-path: /
 ---

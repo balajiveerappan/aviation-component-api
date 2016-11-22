@@ -8,17 +8,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aviation.poc.entity.Component;
-import com.aviation.poc.repository.ComponentHistoryRepository;
-import com.aviation.poc.repository.ComponentRepository;
 import com.aviation.poc.service.AviationComponentService;
 import com.aviation.poc.vo.ComponentHistoryGroupVO;
 
@@ -26,11 +22,11 @@ import com.aviation.poc.vo.ComponentHistoryGroupVO;
 @Service
 public class AviationComponentServiceImpl  implements AviationComponentService{
 
-	@Autowired
+	/*@Autowired
 	private ComponentHistoryRepository historyRepo;
 	
 	@Autowired
-	private ComponentRepository componentRepository;
+	private ComponentRepository componentRepository;*/
 	
 
 	@Override
@@ -38,7 +34,7 @@ public class AviationComponentServiceImpl  implements AviationComponentService{
 
 		switch(componentType) {
 		
-		case "ATA" : return historyRepo.getRemovedComponents(startDate, endDate, "Removed", "null")
+		/*case "ATA" : return historyRepo.getRemovedComponents(startDate, endDate, "Removed", "null")
 					.stream().limit(10).collect(Collectors.toList());
 		
 		case "MFG" : return historyRepo.getRemovedComponentsMFG(startDate, endDate, "Removed", "null")
@@ -49,7 +45,7 @@ public class AviationComponentServiceImpl  implements AviationComponentService{
 						
 		case "TAIL" : return historyRepo.getRemovedComponentstailRemoval(startDate, endDate, "Removed", "null")
 				.stream().limit(10).collect(Collectors.toList());
-		
+		*/
 		}
 		
 		return null;
@@ -58,13 +54,13 @@ public class AviationComponentServiceImpl  implements AviationComponentService{
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public List<Component> getComponent(Date fromDate, Date toDate) {
 
-		final List<Component> component = componentRepository.getComponent(fromDate, toDate);
+		final List<Component> component = null;//componentRepository.getComponent(fromDate, toDate);
 		return component;
 	}
 	
 	public com.aviation.poc.vo.ComponentReport getComponents(List<Long> componentIds) {
 		
-		 List<com.aviation.poc.entity.ComponentHistory> componentHisList = historyRepo.getComponents(componentIds);
+		 List<com.aviation.poc.entity.ComponentHistory> componentHisList = null;// historyRepo.getComponents(componentIds);
 		
 		 List<com.aviation.poc.vo.HisotryComponenItemVO> itemList = new ArrayList<com.aviation.poc.vo.HisotryComponenItemVO>();
 		 Map<String, List<String>> serialNumberMap = new HashMap<String, List<String>> ();
