@@ -31,7 +31,9 @@ private String H_ACN;
 private String FLEET;
 private String FLEET_MODEL_CD;
 private String H_POS;
-private String HI_DTE;
+
+@DateTimeFormat(iso=ISO.DATE_TIME)
+private Date HI_DTE;
 private String HI_STA;
 private String HI_DEPT;
 
@@ -47,7 +49,9 @@ private String HR_ATA;
 private String HR_D_NBR;
 private String HS_STA;
 private String HS_DEPT;
-private String HS_REPAIR_DTE;
+
+@DateTimeFormat(iso=ISO.DATE_TIME)
+private Date HS_REPAIR_DTE;
 private String HS_REPAIR_TYPE;
 private String HS_REPAIR_ODR_NBR;
 private String master;

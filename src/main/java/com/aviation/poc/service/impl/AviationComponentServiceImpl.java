@@ -1,13 +1,7 @@
 package com.aviation.poc.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -16,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.aviation.poc.entity.Component;
 import com.aviation.poc.service.AviationComponentService;
-import com.aviation.poc.vo.ComponentHistoryGroupVO;
 
 
 @Service
@@ -59,7 +52,7 @@ public class AviationComponentServiceImpl  implements AviationComponentService{
 	}
 	
 	public com.aviation.poc.vo.ComponentReport getComponents(List<Long> componentIds) {
-		
+	/*	
 		 List<com.aviation.poc.entity.ComponentHistory> componentHisList = null;// historyRepo.getComponents(componentIds);
 		
 		 List<com.aviation.poc.vo.HisotryComponenItemVO> itemList = new ArrayList<com.aviation.poc.vo.HisotryComponenItemVO>();
@@ -196,8 +189,8 @@ public class AviationComponentServiceImpl  implements AviationComponentService{
 		 
 		 List<ComponentHistoryGroupVO> groupList = new ArrayList<ComponentHistoryGroupVO>(groupSet);
 		 componentList.setGroupList(groupList);
-		 componentList.setItemList(itemList);
-		 return componentList;
+		 componentList.setItemList(itemList);*/
+		 return null;
 		 
 		
 		

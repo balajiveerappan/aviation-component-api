@@ -12,9 +12,8 @@ public interface MasterDataRepository extends MongoRepository<MasterData, Serial
 
 	@Query("{}")
 	public Stream<MasterData> getAllRecords();
-	
-	   @Query("{master : ?0}")
-	    public MasterData findByMasterId(String master);
-	
+
+	@Query("{master : ?0}")
+	public MasterData findByMasterId(String master);
 
 }
