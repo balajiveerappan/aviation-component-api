@@ -15,6 +15,7 @@ import java.util.TimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,9 +23,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.aviation.poc.entity.Component;
 import com.aviation.poc.service.AviationComponentService;
 import com.aviation.poc.util.ComponentConstants;
+import com.aviation.poc.vo.ComponentReport;
+import com.aviation.poc.vo.ComponentsPageVO;
+import com.aviation.poc.vo.RemovalReportVO;
 
 @RestController
 public class AviationComponentController {
@@ -61,10 +66,14 @@ public class AviationComponentController {
 
 	
 
-	@RequestMapping(value = "/removalReport", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/removalReport", method = RequestMethod.GET/*, produces = MediaType.APPLICATION_JSON_VALUE*/)
 	@ResponseBody
-	public com.aviation.poc.vo.ComponentReport removalReport(@RequestParam List<Long> componentIdList) {
-		 return componentService.getComponents(componentIdList);
+	public com.aviation.poc.vo.ComponentReport removalReport(@RequestParam List<Long> componentIds,@RequestParam String fromDate) {
+		
+		System.out.println("component API "+componentIds);
+		ComponentReport temp = componentService.getComponents(componentIds,fromDate);
+		// return componentService.getComponents(componentIdList);
+		return temp;
 	}
 	
 	
@@ -116,30 +125,56 @@ public class AviationComponentController {
 			
 		  
 		  @RequestMapping(value = "/navigationToRemoval", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		  public List<Long>  navigationToRemoval(@RequestParam(required=false) String actualData,@RequestParam(required=false) String dataType){
+		  public ComponentsPageVO  navigationToRemoval(@RequestParam(required=false) String actualData,@RequestParam(required=false) String dataType,@RequestParam(required=false) String fromDate,@RequestParam(required=false) String toDate){
 				
+			  ComponentsPageVO componentPageVO=new ComponentsPageVO();
+			  String pageStatus=null;
 			  System.out.println("in api navigationToRemoval"+actualData+"dsfds"+dataType);
+			  
+			  
 			  String pattern = ComponentConstants.DATEFORMATNEW;
 				//String dataIntervalValue=getSplashDate();
 				//String[] date=dataIntervalValue.split(",");
 				Date sDate=null;
 				Date eDate=null;
+				System.out.println("from date "+fromDate+" to date "+toDate);
 				try {
-					sDate =  new SimpleDateFormat(pattern).parse("2014-08-10");
-					 eDate =  new SimpleDateFormat(pattern).parse("2016-08-10");
+					sDate =  new SimpleDateFormat(pattern).parse(fromDate);
+					 eDate =  new SimpleDateFormat(pattern).parse(toDate);
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				
+				System.out.println("from date "+sDate+" to date "+eDate);
 				List<Long> splashScreenComponentsId=new ArrayList<Long>();
 				splashScreenComponentsId=componentService.getComponentsIdsSplashScreen(actualData, dataType, sDate, eDate);
 
 				
+				switch(dataType) {
 				
+				case "ATA" :
+					pageStatus="ATA-"+actualData;
+					break;
+				
+				case "CPN" :
+					pageStatus="CPN-"+actualData;
+					break;
+				case "CSN" : 
+					pageStatus="Copmany Serial No-"+actualData;
+					break;
+				case "Tail" : 
+					pageStatus="TAIL-"+actualData;
+					break;
+
+				}
 				
 				System.out.println("splashScreenComponentsId"+splashScreenComponentsId);
+				
+				
+				componentPageVO.setComponentIds(splashScreenComponentsId);
+				componentPageVO.setPageStatus(pageStatus);
+				
 
-		   return splashScreenComponentsId;
+		   return componentPageVO;
 				
 		  }
 		  

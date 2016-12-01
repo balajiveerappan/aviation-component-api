@@ -1,5 +1,6 @@
 package com.aviation.poc.service.impl;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -65,7 +66,7 @@ public class AviationComponentServiceImpl  implements AviationComponentService{
 		return component;
 	}
 	
-	public com.aviation.poc.vo.ComponentReport getComponents(List<Long> componentIds) {
+	public com.aviation.poc.vo.ComponentReport getComponents(List<Long> componentIds,String fromDate) {
 		
 		 List<com.aviation.poc.entity.ComponentHistory> componentHisList = historyRepo.getComponents(componentIds);
 		
@@ -249,16 +250,24 @@ public class AviationComponentServiceImpl  implements AviationComponentService{
 			
 			 startDate = outputFormatter.format(componentHistory.getFromDate());
 			 installationDate=componentHistory.getFromDate().toString();
-/*
-			 if(componentHistory.getFromDate().before(fromDate))
+			 Date sDate=null;;
+			try {
+				sDate = new SimpleDateFormat("yyyy-MM-dd").parse(fromDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 
+			 
+			 if(componentHistory.getFromDate().before(sDate))
 			 {
-				 startDate = outputFormatter.format(fromDate);
-				componentHistory.setFromDate(fromDate);
+				 startDate = outputFormatter.format(sDate);
+				componentHistory.setFromDate(sDate);
 					 componentHistory.setStatus("Installed Unit");
 
 				 
 			 }
-*/
+
 			 item.setId(String.valueOf(count++));
 			 item.setContent("");
 			

@@ -11,7 +11,7 @@ public interface AviationComponentService {
  
  public List<Component> getComponent(Date fromDate, Date toDate);
  
- public com.aviation.poc.vo.ComponentReport getComponents(List<Long> componentIds);
+ public com.aviation.poc.vo.ComponentReport getComponents(List<Long> componentIds,String fromDate);
  
  
  List<Long> getComponentsIdsSplashScreen(final String actualData, final String dataType, final Date startDate, final Date endDate);
