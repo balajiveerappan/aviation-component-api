@@ -40,27 +40,25 @@ public class AviationComponentController {
 	@RequestMapping(value = "/splashScreen", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Object> showSplashScreen(@RequestParam(required=false) String componentType) {
 		String pattern = ComponentConstants.DATEFORMATNEW;
-		//String dataIntervalValue=getSplashDate();
-		//String[] date=dataIntervalValue.split(",");
+		String dataIntervalValue=getSplashDate();
+		String[] dateInterval=dataIntervalValue.split(",");
+	
 		Date sDate=null;
 		Date eDate=null;
 		try {
-			sDate =  new SimpleDateFormat(pattern).parse("2014-08-10");
-			 eDate =  new SimpleDateFormat(pattern).parse("2016-08-10");
+			sDate =  new SimpleDateFormat(pattern).parse(dateInterval[0]);
+			 eDate =  new SimpleDateFormat(pattern).parse(dateInterval[1]);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+	
 		List<Object> componentRemovalRept =  componentService.getRemovedComponents(sDate, eDate, componentType);
-		System.out.println("in api"+componentRemovalRept);
-		
 		return componentRemovalRept;
 	}
 	
 	@RequestMapping(value = "/loadComponent", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Component> loadComponentData(@RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date start, @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date end)
 			throws ParseException {
-		
-		
 		return componentService.getComponent(start, end);
 	}
 
@@ -69,11 +67,7 @@ public class AviationComponentController {
 	@RequestMapping(value = "/removalReport", method = RequestMethod.GET/*, produces = MediaType.APPLICATION_JSON_VALUE*/)
 	@ResponseBody
 	public com.aviation.poc.vo.ComponentReport removalReport(@RequestParam List<Long> componentIds,@RequestParam String fromDate) {
-		
-		System.out.println("component API "+componentIds);
-		ComponentReport temp = componentService.getComponents(componentIds,fromDate);
-		// return componentService.getComponents(componentIdList);
-		return temp;
+		return componentService.getComponents(componentIds,fromDate);
 	}
 	
 	
@@ -81,7 +75,6 @@ public class AviationComponentController {
     
 		@RequestMapping(value = "/getSplashDate", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 		public String getSplashDate() {
-			System.out.println("in component api");
 			 Calendar cal = Calendar.getInstance();
 	         cal.setTimeZone(TimeZone.getTimeZone("GMT"));
 	         String toDate=getDate(cal);
@@ -165,15 +158,9 @@ public class AviationComponentController {
 					pageStatus="TAIL-"+actualData;
 					break;
 
-				}
-				
-				System.out.println("splashScreenComponentsId"+splashScreenComponentsId);
-				
-				
+				}	
 				componentPageVO.setComponentIds(splashScreenComponentsId);
 				componentPageVO.setPageStatus(pageStatus);
-				
-
 		   return componentPageVO;
 				
 		  }
