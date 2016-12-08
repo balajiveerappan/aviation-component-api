@@ -3,8 +3,9 @@ applications:
   memory: 1G
   host: aviation-component-api-service
   path: target/aviation-component-api-0.0.1-SNAPSHOT.jar
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git
   env:
-    spring.profiles.active: cloud
+    SPRING_PROFILES_ACTIVE: cloud
   services:
   - eureka
-  - mysql
+  - postgres-sql
