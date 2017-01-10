@@ -145,7 +145,6 @@ public class AviationComponentController {
 				switch(dataType) {
 				
 				case "ATA" :
-					pageStatus="ATA-"+actualData;
 					break;
 				
 				case "CPN" :
